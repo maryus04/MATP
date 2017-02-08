@@ -1,8 +1,8 @@
 import javax.persistence.*;
 
 @Entity
-@Table(name="Invoice")
-public class Invoice {
+@Table(name="SellInvoice")
+public class SellInvoice {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="id")
@@ -13,10 +13,12 @@ public class Invoice {
 
     @OneToOne
     @JoinColumn(name = "contract_id", unique = true, nullable = false)
-    private Contract contract;
+    private SellContract buyContract;
 
-    public Invoice(Contract contract, int date) {
-        this.contract = contract;
+    public SellInvoice(){}
+
+    public SellInvoice(SellContract buyContract, int date) {
+        this.buyContract = buyContract;
         this.date = date;
     }
 
@@ -36,11 +38,11 @@ public class Invoice {
         this.date = date;
     }
 
-    public Contract getContract() {
-        return contract;
+    public SellContract getBuyContract() {
+        return buyContract;
     }
 
-    public void setContract(Contract contract) {
-        this.contract = contract;
+    public void setBuyContract(SellContract buyContract) {
+        this.buyContract = buyContract;
     }
 }

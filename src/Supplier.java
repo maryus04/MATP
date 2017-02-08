@@ -13,6 +13,8 @@ public class Supplier {
     @Column(name="supplier_name")
     private String supplierName;
 
+    public Supplier(){}
+
     public Supplier(String name){
         supplierName = name;
     }

@@ -5,23 +5,15 @@ import org.hibernate.cfg.AnnotationConfiguration;
 
 public class Main {
     public static void main(String[] args) {
-        SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        Session session = sessionFactory.openSession();
-
-        AddStuff(session);
-
-        String hql = "FROM Document";
-        Query query = session.createQuery(hql);
-        List results = query.list();
+        List results = Operation.Get(Operation.DATA_TYPES.CLIENT);
 
         System.out.println("\u001B[32m==========================================================================================================================================");
 
         for (Object docment: results) {
-            System.out.println(docment);
+            System.out.println(((Client)docment).getName());
         }
 
         System.out.println("\u001B[32m==========================================================================================================================================");
-        session.close();
     }
 
     private static void AddStuff(Session session){
@@ -51,17 +43,23 @@ public class Main {
 
         Lot lot9 = new Lot(product6, 59);  // CONTRACT 5
 
-       Contract contract1 = new Contract(supplier1, 4312,lot1,lot2,lot3);
-       Contract contract2 = new Contract(supplier1, 542,lot4);
-       Contract contract3 = new Contract(supplier2, 43,lot5,lot6);
-       Contract contract4 = new Contract(supplier3, 31,lot7,lot8);
-       Contract contract5 = new Contract(supplier3, 431,lot9);
+       BuyContract buyContract1 = new BuyContract(supplier1,12, 4312,lot1,lot2,lot3);
+       BuyContract buyContract2 = new BuyContract(supplier1,32, 542,lot4);
+       BuyContract buyContract3 = new BuyContract(supplier2,43, 43,lot5,lot6);
+       BuyContract buyContract4 = new BuyContract(supplier3,54, 31,lot7,lot8);
+       BuyContract buyContract5 = new BuyContract(supplier3,12, 431,lot9);
 
-        Invoice invoice1 = new Invoice(contract1, 123);
-        Invoice invoice2 = new Invoice(contract2, 123123);
-        Invoice invoice3 = new Invoice(contract3, 12433);
-        Invoice invoice4 = new Invoice(contract4, 1232);
-        Invoice invoice5 = new Invoice(contract5, 1233);
+        BuyInvoice buyInvoice1 = new BuyInvoice(buyContract1, 123);
+        BuyInvoice buyInvoice2 = new BuyInvoice(buyContract2, 123123);
+        BuyInvoice buyInvoice3 = new BuyInvoice(buyContract3, 12433);
+        BuyInvoice buyInvoice4 = new BuyInvoice(buyContract4, 1232);
+        BuyInvoice buyInvoice5 = new BuyInvoice(buyContract5, 1233);
+
+        Client client1 = new Client("Tanti", "Pachita", "strada garii");
+        Client client2 = new Client("Caramida", "Plictisita", "strada viitorului");
+
+        SellContract contract1 = new SellContract(client1,12,243,lot1,lot2);
+        SellContract contract2 = new SellContract(client2,132,2443,lot3,lot7);
 
         session.beginTransaction();
 
@@ -86,17 +84,23 @@ public class Main {
         session.save(lot8);
         session.save(lot9);
 
+        session.save(buyContract1);
+        session.save(buyContract2);
+        session.save(buyContract3);
+        session.save(buyContract4);
+        session.save(buyContract5);
+
+        session.save(buyInvoice1);
+        session.save(buyInvoice2);
+        session.save(buyInvoice3);
+        session.save(buyInvoice4);
+        session.save(buyInvoice5);
+
+        session.save(client1);
+        session.save(client2);
+
         session.save(contract1);
         session.save(contract2);
-        session.save(contract3);
-        session.save(contract4);
-        session.save(contract5);
-
-        session.save(invoice1);
-        session.save(invoice2);
-        session.save(invoice3);
-        session.save(invoice4);
-        session.save(invoice5);
 
         session.getTransaction().commit();
     }

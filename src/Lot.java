@@ -17,6 +17,8 @@ public class Lot {
     @ManyToOne(cascade=CascadeType.ALL)
     private Product product;
 
+    public Lot(){}
+
     public Lot(Product product, int quant){
         this.product = product;
         quantity = quant;

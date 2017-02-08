@@ -27,8 +27,11 @@
         <!-- Drop and re-create the database schema on startup -->
         <property name="hbm2ddl.auto">update</property>
 
-        <mapping class="Contract"/>
-        <mapping class="Invoice"/>
+        <mapping class="BuyContract"/>
+        <mapping class="BuyInvoice"/>
+        <mapping class="SellContract"/>
+        <mapping class="SellInvoice"/>
+        <mapping class="Client"/>
         <mapping class="Lot"/>
         <mapping class="Product"/>
         <mapping class="Supplier"/>

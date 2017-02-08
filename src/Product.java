@@ -16,6 +16,8 @@ public class Product {
     @Column(name="product_prices")
     private int productPrice;
 
+    public Product(){}
+
     public Product(String name, int price){
         productName = name;
         productPrice = price;
